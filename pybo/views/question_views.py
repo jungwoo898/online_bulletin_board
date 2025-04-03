@@ -32,8 +32,8 @@ def _list():
         sub_query = db.session.query(Answer.question_id, Answer.content, User.username) \
             .join(User, Answer.user_id == User.id).subquery()
         question_list = question_list \
-            .join(User) \          
-            .outerjoin(sub_query, sub_query.c.question_id == Question.id) \          
+            .join(User) \
+            .outerjoin(sub_query, sub_query.c.question_id == Question.id) \
             .filter(Question.subject.ilike(search) |  # 질문제목
                     Question.content.ilike(search) |  # 질문내용
                     User.username.ilike(search) |  # 질문작성자
