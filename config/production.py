@@ -27,8 +27,6 @@ dictConfig({
         'handlers': ['file']
     }
 })
-
-(... 생략 ...)
 from dotenv import load_dotenv
 
 load_dotenv(os.path.join(BASE_DIR, '.env'))
