@@ -5,7 +5,7 @@ Created on Mon Mar 31 10:23:51 2025
 @author: Admin
 """
 
-from flask import Flask
+from flask import Flask, render_template
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 import config
@@ -25,9 +25,12 @@ naming_convention = {
 db = SQLAlchemy(metadata=MetaData(naming_convention=naming_convention))
 migrate = Migrate()
 
+def page_not_found(e):
+    return render_template('404.html'), 404
+
 def create_app(): #팩토리 형태의 함수 즉 고정 애플리케이션 팩토리(플라스크 내부에서 정의된 함수)
     app = Flask(__name__)
-    app.config.from_object(config) # config라는 모듈 안에 있다
+    app.config.from_envvar('APP_CONFIG_FILE') # config라는 모듈 안에 있다
 
     
     db.init_app(app)
@@ -46,6 +49,8 @@ def create_app(): #팩토리 형태의 함수 즉 고정 애플리케이션 팩�
     # 필터
     from .filter import format_datetime
     app.jinja_env.filters['datetime'] = format_datetime
+    # 오류페이지
+    app.register_error_handler(404, page_not_found)
     
     return app
 

@@ -1,12 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Apr  1 09:23:40 2025
-
-@author: Admin
-"""
-import os
-
-BASE_DIR = os.path.dirname(__file__)
+from config.default import *
 
 SQLALCHEMY_DATABASE_URI = 'sqlite:///{}'.format(os.path.join(BASE_DIR, 'pybo.db'))
 SQLALCHEMY_TRACK_MODIFICATIONS = False
